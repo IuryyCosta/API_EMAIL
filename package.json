@@ -4,7 +4,8 @@
   "description": "API para envio de email ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "build": "echo \"No build step configured\" && exit 0"
   },
   "author": "Iury Costa",
   "license": "ISC",
@@ -18,5 +19,9 @@
     "knex": "^3.1.0",
     "nodemailer": "^6.9.16",
     "oracledb": "^6.7.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.17",
+    "nodemon": "^3.1.7"
   }
 }
