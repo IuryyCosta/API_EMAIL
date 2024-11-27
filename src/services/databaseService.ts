@@ -19,6 +19,8 @@ export const executeComplexQuery = async (): Promise<any[]> => {
             AND cd_convenio = 4
             AND a.nr_atendimento (+) = ap.nr_atendimento
             AND TRUNC(dt_alta) BETWEEN TO_DATE('19/11/2024', 'DD/MM/YYYY') AND TO_DATE('20/11/2024', 'DD/MM/YYYY')
+            AND dt_alta >= TO_DATE('19/11/2024 06:00:00', 'DD/MM/YYYY HH24:MI:SS')
+            AND dt_alta <= TO_DATE('19/11/2024 18:00:00', 'DD/MM/YYYY HH24:MI:SS')
     ) tasy
     LEFT JOIN (
         -- Total de atendimentos na tabela tbl_inm_atendimento
@@ -40,6 +42,8 @@ export const executeComplexQuery = async (): Promise<any[]> => {
                     AND cd_convenio = 4
                     AND a.nr_atendimento (+) = ap.nr_atendimento
                     AND TRUNC(dt_alta) BETWEEN TO_DATE('19/11/2024', 'DD/MM/YYYY') AND TO_DATE('20/11/2024', 'DD/MM/YYYY')
+                    AND dt_alta >= TO_DATE('19/11/2024 06:00:00', 'DD/MM/YYYY HH24:MI:SS')
+                    AND dt_alta <= TO_DATE('19/11/2024 18:00:00', 'DD/MM/YYYY HH24:MI:SS')
             )
     ) api 
     ON 
