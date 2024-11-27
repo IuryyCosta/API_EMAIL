@@ -8,6 +8,6 @@ const app = express();
 app.use(bodyParser.json());
 
 // Rotas
-app.use('/api', queryRoutes);
+app.use('/', queryRoutes);
 
 export default app;

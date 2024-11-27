@@ -4,8 +4,10 @@
   "description": "API para envio de email ",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "build": "echo \"No build step configured\" && exit 0"
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build",
+    "knex": "node --import tsx ./node_modules/knex/bin/cli.js"
   },
   "author": "Iury Costa",
   "license": "ISC",
@@ -22,6 +24,9 @@
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.17",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2"
   }
 }

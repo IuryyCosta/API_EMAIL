@@ -3,7 +3,9 @@ import { executeComplexQuery } from '../services/databaseService';
 import { sendEmail } from '../services/emailService';
 
 export const handleComplexQueryAndEmail = async (req: Request, res: Response): Promise<void> => {
-  const { email } = req.body;
+
+
+   const { email } = req.body;
 
   if (!email) {
     res.status(400).json({ error: 'O e-mail é obrigatório!' });
@@ -23,5 +25,5 @@ export const handleComplexQueryAndEmail = async (req: Request, res: Response): P
   } catch (error) {
     console.error('Erro ao processar requisição:', error);
     res.status(500).json({ error: 'Erro ao executar a consulta ou enviar o e-mail.' });
-  }
+  } 
 };

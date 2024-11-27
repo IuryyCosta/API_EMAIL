@@ -4,6 +4,8 @@ import { handleComplexQueryAndEmail } from '../controllers/queryController';
 const router = Router();
 
 // Rota para executar a consulta complexa
-router.post('/send-complex-query-results', handleComplexQueryAndEmail);
-
+router.post('/email', handleComplexQueryAndEmail);
+/* router.post('/email',()=>{
+    console.log('rota executada')
+}); */
 export default router;
