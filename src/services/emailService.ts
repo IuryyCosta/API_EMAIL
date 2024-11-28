@@ -13,12 +13,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendEmail = async (to: string, subject: string, body: string): Promise<void> => {
+export const sendEmail =  (to: string, subject: string, body: string) : void=> {
   try {
-    await transporter.sendMail({
+     transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to : process.env.EMAIL_USER ,
-      subject : "Comparativo dos Antendimento enviados",
+      to :process.env.EMAIL_USER,
+      subject : subject,
       text: body,
     });
   } catch (error) {

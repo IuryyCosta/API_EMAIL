@@ -38,3 +38,10 @@ export const handleComplexQueryAndEmail = async (req: Request, res: Response): P
     res.status(500).json({ error: 'Erro ao executar a consulta.' });
   }
 };
+
+export const testEmail = (req: Request, res: Response) => {
+  const {to,subject, body} = req.body;
+   sendEmail(to, subject, body);
+
+  res.status(200).json()
+};
