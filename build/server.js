@@ -29,26 +29,152 @@ var import_body_parser = __toESM(require("body-parser"));
 // src/routes/queryRoutes.ts
 var import_express = require("express");
 
+// src/config/database.ts
+var import_knex = __toESM(require("knex"));
+var import_dotenv = __toESM(require("dotenv"));
+import_dotenv.default.config();
+var db = (0, import_knex.default)({
+  client: "oracledb",
+  connection: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  }
+});
+var database_default = db;
+
+// src/services/databaseService.ts
+var executeQuery = async () => {
+  const query = `
+    SELECT 
+        COUNT(tasy.nr_atendimento) AS legado,
+        COUNT(api.nr_atendimento) AS api,
+        COUNT(tasy.nr_atendimento) - COUNT(api.nr_atendimento) AS diferenca
+    FROM (
+        -- Total de atendimentos de alta por per\xEDodo no Tasy
+        SELECT DISTINCT 
+            ap.nr_atendimento
+        FROM
+            tasy.atendimento_paciente_v ap,
+            tasy.sus_laudo_paciente a
+        WHERE
+            a.dt_cancelamento IS NULL
+            AND ie_tipo_atendimento = 1
+            AND cd_convenio = 4
+            AND a.nr_atendimento (+) = ap.nr_atendimento
+            AND TRUNC(dt_alta) BETWEEN TO_DATE('19/11/2024', 'DD/MM/YYYY') AND TO_DATE('20/11/2024', 'DD/MM/YYYY')
+            AND dt_alta >= TO_DATE('19/11/2024 06:00:00', 'DD/MM/YYYY HH24:MI:SS')
+            AND dt_alta <= TO_DATE('19/11/2024 18:00:00', 'DD/MM/YYYY HH24:MI:SS')
+    ) tasy
+    LEFT JOIN (
+        -- Total de atendimentos na tabela tbl_inm_atendimento
+        SELECT DISTINCT 
+            nr_atendimento
+        FROM 
+            tbl_inm_atendimento
+        WHERE 
+            tp_status <> 'A'
+            AND nr_atendimento IN (
+                SELECT DISTINCT 
+                    ap.nr_atendimento
+                FROM
+                    tasy.atendimento_paciente_v ap,
+                    tasy.sus_laudo_paciente a
+                WHERE
+                    a.dt_cancelamento IS NULL
+                    AND ie_tipo_atendimento = 1
+                    AND cd_convenio = 4
+                    AND a.nr_atendimento (+) = ap.nr_atendimento
+                    AND TRUNC(dt_alta) BETWEEN TO_DATE('19/11/2024', 'DD/MM/YYYY') AND TO_DATE('20/11/2024', 'DD/MM/YYYY')
+                    AND dt_alta >= TO_DATE('19/11/2024 06:00:00', 'DD/MM/YYYY HH24:MI:SS')
+                    AND dt_alta <= TO_DATE('19/11/2024 18:00:00', 'DD/MM/YYYY HH24:MI:SS')
+            )
+    ) api 
+    ON 
+        tasy.nr_atendimento = api.nr_atendimento;
+  `;
+  try {
+    const results = await database_default.raw(query);
+    return results;
+  } catch (error) {
+    console.error("Erro ao executar consulta complexa:", error);
+    throw new Error("Erro ao executar consulta complexa");
+  }
+};
+
+// src/services/emailService.ts
+var import_nodemailer = __toESM(require("nodemailer"));
+var import_dotenv2 = __toESM(require("dotenv"));
+import_dotenv2.default.config();
+var transporter = import_nodemailer.default.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: Number(process.env.EMAIL_PORT) || 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
+var sendEmail = async (to, subject, body) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "Comparativo dos Antendimento enviados",
+      text: body
+    });
+  } catch (error) {
+    console.error("Erro ao enviar e-mail:", error);
+    throw new Error("Erro ao enviar e-mail");
+  }
+};
+
 // src/controllers/queryController.ts
 var handleComplexQueryAndEmail = async (req, res) => {
-  res.json("Funcionou");
+  const { email } = req.body;
+  if (!email) {
+    res.status(400).json({ error: "O e-mail \xE9 obrigat\xF3rio!" });
+    return;
+  }
+  try {
+    const results = await executeQuery();
+    const formattedResults = JSON.stringify(results, null, 2);
+    await sendEmail(email, "Resultados da Consulta ", formattedResults);
+    res.status(200).json({ message: "Consulta executada e e-mail enviado com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao processar requisi\xE7\xE3o:", error);
+    res.status(500).json({ error: "Erro ao executar a consulta ou enviar o e-mail." });
+  }
 };
 
 // src/routes/queryRoutes.ts
 var router = (0, import_express.Router)();
-router.post("/send-complex-query-results", handleComplexQueryAndEmail);
+router.post("/email", handleComplexQueryAndEmail);
 var queryRoutes_default = router;
 
 // src/app.ts
+var import_helmet = __toESM(require("helmet"));
 var app = (0, import_express2.default)();
+app.use((0, import_helmet.default)(
+  {
+    contentSecurityPolicy: false,
+    // Desativa o CSP (útil para ambientes de desenvolvimento)
+    frameguard: { action: "deny" },
+    // Impede a aplicação de ser carregada em iframes
+    referrerPolicy: { policy: "no-referrer" }
+    // Não envia cabeçalhos Referrer
+  }
+));
 app.use(import_body_parser.default.json());
-app.use("/api", queryRoutes_default);
+app.use(import_body_parser.default.urlencoded({ extended: true }));
+app.use("/", queryRoutes_default);
 var app_default = app;
 
 // src/server.ts
-var import_dotenv = __toESM(require("dotenv"));
-import_dotenv.default.config();
-var PORT = process.env.PORT || 3e3;
+var import_dotenv3 = __toESM(require("dotenv"));
+import_dotenv3.default.config();
+var PORT = process.env.PORT;
 app_default.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });

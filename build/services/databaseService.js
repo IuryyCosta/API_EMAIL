@@ -30,7 +30,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/services/databaseService.ts
 var databaseService_exports = {};
 __export(databaseService_exports, {
-  executeComplexQuery: () => executeComplexQuery
+  executeQuery: () => executeQuery
 });
 module.exports = __toCommonJS(databaseService_exports);
 
@@ -50,7 +50,7 @@ var db = (0, import_knex.default)({
 var database_default = db;
 
 // src/services/databaseService.ts
-var executeComplexQuery = async () => {
+var executeQuery = async () => {
   const query = `
     SELECT 
         COUNT(tasy.nr_atendimento) AS legado,
@@ -109,5 +109,5 @@ var executeComplexQuery = async () => {
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  executeComplexQuery
+  executeQuery
 });
