@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { handleComplexQueryAndEmail } from '../controllers/queryController';
+import { fetchLogs } from '../controllers/logController';
 
 const router = Router();
 
 // Rota para executar a consulta complexa
 router.post('/email', handleComplexQueryAndEmail);
 
-/* router.post('/email',()=>{
-    console.log('rota executada')
-}); */
+router.get('logs', fetchLogs);
+
 export default router;

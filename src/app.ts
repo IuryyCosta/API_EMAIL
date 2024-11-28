@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import queryRoutes from './routes/queryRoutes';
 import helmet from 'helmet';
+import { setupDatabase } from './services/setupDatabase';
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 // Rotas
 app.use('/', queryRoutes);
+
 
 export default app;

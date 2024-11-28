@@ -54,7 +54,7 @@ export const executeQuery = async (): Promise<any[]> => {
     const results = await db.raw(query);
     return results; // Retorna os resultados da consulta
   } catch (error) {
-    console.error('Erro ao executar consulta complexa:', error);
-    throw new Error('Erro ao executar consulta complexa');
+    console.error('Erro ao executar consulta :', error);
+    throw new Error('Erro ao executar consulta ');
   }
 };

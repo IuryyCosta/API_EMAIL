@@ -4,6 +4,7 @@
   "description": "API para envio de email ",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
@@ -21,11 +22,18 @@
     "helmet": "^8.0.0",
     "knex": "^3.1.0",
     "nodemailer": "^6.9.16",
-    "oracledb": "^6.7.0"
+    "oracledb": "^6.7.0",
+    "sqlite": "^5.1.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/nodemailer": "^6.4.17",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
+    "sqlite3": "^5.1.7",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2"
