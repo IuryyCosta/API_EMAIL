@@ -1,6 +1,6 @@
 import db from '../config/database';
 
-export const executeComplexQuery = async (): Promise<any[]> => {
+export const executeQuery = async (): Promise<any[]> => {
   const query = `
     SELECT 
         COUNT(tasy.nr_atendimento) AS legado,

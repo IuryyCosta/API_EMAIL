@@ -5,6 +5,7 @@ const router = Router();
 
 // Rota para executar a consulta complexa
 router.post('/email', handleComplexQueryAndEmail);
+
 /* router.post('/email',()=>{
     console.log('rota executada')
 }); */
