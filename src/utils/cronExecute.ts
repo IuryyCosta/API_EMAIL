@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
+import { handleQueryAndEmailInternal } from '../models/sendEmail';
 
 dotenv.config();
 
 export const timeExecute = ()=>{
+    console.log('Executando o TimeExecute ')
     const start = new Date() ;
     const hours = start.getHours();
     const minutes = start.getMinutes();
@@ -21,6 +23,7 @@ export const timeExecute = ()=>{
         );
 
         if(deveExecutar){
+            
             consultarAPI();
         }
     
@@ -31,5 +34,13 @@ export const timeExecute = ()=>{
 
 
 function consultarAPI(){
-    console.log("Consultar API....")
+    console.log("Consultar API....");
+    handleQueryAndEmailInternal()
+    .then(()=>{
+        console.log('Email enviado com sucesso');
+    })
+    .catch((error)=>{
+        console.error('Erro no processo',error)
+    });
+
 }

@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import queryRoutes from './routes/queryRoutes';
 import helmet from 'helmet';
+import { timeExecute } from './utils/cronExecute';
 
 
 const app = express();
@@ -21,5 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true}))
 // Rotas
 app.use('/', queryRoutes);
 
+setInterval(timeExecute,60000)
 
 export default app;
