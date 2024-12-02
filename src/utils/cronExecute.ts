@@ -1,36 +1,55 @@
 import dotenv from 'dotenv';
+
 import { handleQueryAndEmailInternal } from '../models/sendEmail';
 
 dotenv.config();
 
-export const timeExecute = ()=>{
-    console.log('Executando o TimeExecute ')
-    const start = new Date() ;
+export const timeExecute = () => {
+    console.log('Executando o TimeExecute');
+    const start = new Date();
     const hours = start.getHours();
     const minutes = start.getMinutes();
 
-    try{
-        // Carrega e valida os horários 
+    console.log('Hora atual:', { hours, minutes });
+
+    try {
+        console.log('Carregando e validando os horários');
+
+        // Carrega e valida os horários a partir do arquivo `.env`
         const horarios = JSON.parse(process.env.HORARIOS || '[]');
 
-        if(!Array.isArray(horarios)){
-            throw new Error('Horários inválidos')
+        console.log('Horários carregados:', horarios);
+
+        console.log('Validando se é um array');
+        if (!Array.isArray(horarios)) {
+            throw new Error('Horários inválidos: não é um array');
         }
 
-        //Verifica se algum horário corresponde ao horário atual
-        const deveExecutar = horarios.some(
-            (horario) => Number(horario.hours) === hours && Number(horario.minutes) === minutes
-        );
+        console.log('Verificando se o horário atual corresponde a algum no array');
 
-        if(deveExecutar){
-            
+        // Verifica se algum horário corresponde ao horário atual
+        const deveExecutar = horarios.some((horario) => {
+            console.log(
+                `Comparando horário: {hours: ${horario.hours}, minutes: ${horario.minutes}}`
+            );
+            return (
+                parseInt(horario.hours, 10) === hours &&
+                parseInt(horario.minutes, 10) === minutes
+            );
+        });
+
+        console.log('Deve executar agora:', deveExecutar);
+
+        if (deveExecutar) {
+            console.log('Horário correspondente encontrado, consultando API...');
             consultarAPI();
+        } else {
+            console.log('Nenhum horário corresponde ao horário atual.');
         }
-    
-    }catch(timeError){
-        console.error('Erro ao verificar horário:', timeError);
+    } catch (timeError) {
+        console.error('Erro ao verificar horários:', timeError);
     }
-}
+};
 
 
 function consultarAPI(){
