@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import queryRoutes from './routes/queryRoutes';
 import helmet from 'helmet';
-import { setupDatabase } from './services/setupDatabase';
+
 
 const app = express();
 
