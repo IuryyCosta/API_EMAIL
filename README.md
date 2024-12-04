@@ -58,12 +58,19 @@ Confira qual banco de dados irá utilizar e adeque as variáveis de ambiente de 
 Caso o banco seja Oracle, as variáveis devem ser:
 
 DATABASE_CLIENT
+
 ORACLE_DIR
+
 DB_CONNECTION_STRING
+
 DB_PASSWORD
+
 DB_USER
-Caso o banco seja PostgreSQL, são as seguintes:
+
+### Caso o banco seja PostgreSQL, são as seguintes:
 
 DATABASE_CLIENT
+
 DB_CONNECTION_STRING
+
 E por fim, a porta da aplicação, que utiliza a variável PORT.
