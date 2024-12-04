@@ -15,14 +15,14 @@ export const handleQueryAndEmailInternal = async (): Promise<void> => {
   }
 
   try {
-    const result = 'Teste handleQueryAndEmailInternal'// await executeQuery();
+    const result =  await executeQuery();
     console.log('Query executada com sucesso.');
 
     const formattedEmail = JSON.stringify(email, null, 2);
-    const formattedResults = JSON.stringify(result, null, 2);
+   // const formattedResults = JSON.stringify(result, null, 2);
     const formattedSubject = JSON.stringify(subject, null, 2);
 
-    await sendEmail(formattedEmail, formattedSubject, formattedResults);
+    await sendEmail(formattedEmail, formattedSubject, result);
     console.log('E-mail enviado com sucesso!');
   } catch (error) {
     console.error('Erro ao processar consulta ou enviar e-mail:', error);

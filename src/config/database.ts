@@ -1,7 +1,10 @@
 import knex from 'knex';
 import dotenv from 'dotenv';
+import oracledb from 'oracledb'
 
 dotenv.config();
+
+oracledb.initOracleClient({ libDir: '../opt/oracle/instantclient_21_13' });
 
 const db = knex({
   client: 'oracledb', 

@@ -16,8 +16,8 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
-  logger: true, // Habilitando logs de Detalhados
-  debug: true, // Habiilitando informações de Depuração
+  logger: false, // Habilitando logs de Detalhados
+  debug: false, // Habiilitando informações de Depuração
   connectionTimeout : 10000 // Tempo de conexão
 });
 

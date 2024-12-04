@@ -21,14 +21,13 @@ export const handleQueryAndEmail = async (req: Request, res: Response): Promise<
     const result =  await executeQuery();
     console.log('Executado query');
 
-    // Formatando os resultados em texto para o corpo do e-mail
-    const formattedResults = JSON.stringify(result,null,2);
+   
     // Fortando Assunto do e-mail
     const formattedSubject = JSON.stringify(subject,null,2);
 
     //enviando e-mail
     try{
-      await sendEmail(email, formattedSubject, formattedResults);
+      await sendEmail(email, formattedSubject, result);
       res.status(200).json({message : 'Consulta executada e e-mail enviado com sucesso!'});
     }catch(error){
       console.error('H: Erro ao enviar o e-mail:', error);

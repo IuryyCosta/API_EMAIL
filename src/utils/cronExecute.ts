@@ -13,19 +13,19 @@ export const timeExecute = () => {
     console.log('Hora atual:', { hours, minutes });
 
     try {
-        console.log('Carregando e validando os horários');
+        //console.log('Carregando e validando os horários');
 
         // Carrega e valida os horários a partir do arquivo `.env`
         const horarios = JSON.parse(process.env.HORARIOS || '[]');
 
-        console.log('Horários carregados:', horarios);
+        //console.log('Horários carregados:', horarios);
 
-        console.log('Validando se é um array');
+       // console.log('Validando se é um array');
         if (!Array.isArray(horarios)) {
             throw new Error('Horários inválidos: não é um array');
         }
 
-        console.log('Verificando se o horário atual corresponde a algum no array');
+       // console.log('Verificando se o horário atual corresponde a algum no array');
 
         // Verifica se algum horário corresponde ao horário atual
         const deveExecutar = horarios.some((horario) => {
@@ -38,7 +38,7 @@ export const timeExecute = () => {
             );
         });
 
-        console.log('Deve executar agora:', deveExecutar);
+      //  console.log('Deve executar agora:', deveExecutar);
 
         if (deveExecutar) {
             console.log('Horário correspondente encontrado, consultando API...');
