@@ -9,7 +9,6 @@ API para envio de e-mails utilizando o Nodemailer. A API permite o envio de e-ma
 - **Nodemailer**: Biblioteca para envio de e-mails.
 - **Knex**: Query builder SQL.
 - **SQLite/OracleDB**: Banco de dados para persistência.
-- **Jest**: Framework de testes.
 - **Typescript**: Para tipagem estática.
 
 ## Instalação
