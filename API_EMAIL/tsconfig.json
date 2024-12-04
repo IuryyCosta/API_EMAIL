@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",                 // Define a versão do JavaScript que será gerada
+      "module": "CommonJS",                 // Define o módulo como CommonJS (usando import/export)
+      "moduleResolution": "node",         // Resolução de módulos no estilo Node.js
+      "esModuleInterop": true,            // Permite importação de módulos CommonJS como se fossem ESM
+      "skipLibCheck": true,               // Ignora checagem de tipo para arquivos de declaração de bibliotecas
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist",                 // Define a pasta de saída para os arquivos compilados
+      "rootDir": "./src",                 // Define o diretório raiz para os arquivos fontes
+      "strict": true                      // Habilita todas as opções de verificação de tipo
+    },
+    "include": [
+      "src/**/*.ts"
+    ]
+  }
+  
