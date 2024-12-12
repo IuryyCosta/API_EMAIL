@@ -1,6 +1,7 @@
-import { executeQuery } from '../services/databaseService';
+
 import { sendEmail } from '../services/emailService';
 import dotenv from 'dotenv';
+import { formatEmail } from '../services/formatEmail';
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ export const handleQueryAndEmailInternal = async (): Promise<void> => {
   }
 
   try {
-    const result =  await executeQuery();
+    const result =  await formatEmail();
     console.log('Query executada com sucesso.');
 
     const formattedEmail = JSON.stringify(email, null, 2);

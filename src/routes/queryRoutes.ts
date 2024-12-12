@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { handleQueryAndEmail, testEmail } from '../controllers/queryController';
+import { handleQueryAndEmail } from '../controllers/queryController';
 import { handleQueryAndEmailInternal } from '../models/sendEmail';
 
 
@@ -9,7 +9,7 @@ const router = Router();
 router.post('/email', handleQueryAndEmail);
 
 // rota para testar o email no mailtrap
-router.post('/emailteste',testEmail );
+//router.post('/emailteste',testEmail );
 
 // teste de uma rota interna 
 router.post('/emailModel',handleQueryAndEmailInternal)

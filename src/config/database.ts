@@ -4,7 +4,7 @@ import oracledb from 'oracledb'
 
 dotenv.config();
 
-oracledb.initOracleClient({ libDir: '../opt/oracle/instantclient_21_13' });
+//oracledb.initOracleClient({ libDir: 'C:\oracle\instantclient_21_15' });
 
 const db = knex({
   client: 'oracledb', 

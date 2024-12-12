@@ -22,6 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true}))
 // Rotas
 app.use('/', queryRoutes);
 
-setInterval(timeExecute,60000)
+//setInterval(timeExecute,60000)
 
 export default app;

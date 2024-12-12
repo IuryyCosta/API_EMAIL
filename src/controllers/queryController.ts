@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { executeQuery } from '../services/databaseService';
 import { sendEmail } from '../services/emailService';
 
 import dotenv from 'dotenv';
+import { formatEmail } from '../services/formatEmail';
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ export const handleQueryAndEmail = async (req: Request, res: Response): Promise<
   }
 
   try{
-    const result =  await executeQuery();
+    const result =  await formatEmail();
     console.log('Executado query');
 
    
