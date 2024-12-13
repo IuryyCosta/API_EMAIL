@@ -10,7 +10,7 @@ export const timeExecute = () => {
     const hours = start.getHours();
     const minutes = start.getMinutes();
 
-    console.log('Hora atual:', { hours, minutes });
+    //console.log('Hora atual:', { hours, minutes });
 
     try {
         //console.log('Carregando e validando os horários');

@@ -88,7 +88,7 @@ export const querySucessErro = async (): Promise<String> =>{
 
     const {Sucesso, Erro} = result
 
-    const resultFormat =` Quatitativo Sucesso x Erro \n\nSucesso : ${Sucesso} Erros : ${Erro}` ;
+    const resultFormat =` Quatitativo Sucesso x Erro \n\nSucesso : Sem dados ainda Erros : Sem dados ainda ` ;
 
     return resultFormat
 
